@@ -1,0 +1,182 @@
+<nav>
+  <button id="getLinks" class="primary">Get links from selection</button>
+</nav>
+<div id="linkList"></div>
+<script>
+  const removeAllChildNodes = (parent) => {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+  }
+
+  const copy = (text) => { 
+    navigator.clipboard.writeText(text)
+  }
+
+  document.getElementById('getLinks').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'get-links' } }, '*')
+  }
+
+  onmessage = (event) => {
+    const links = event.data.pluginMessage
+    const linkList = document.getElementById("linkList")
+    
+    removeAllChildNodes(linkList)
+
+    const title = document.createElement("div")
+    title.innerHTML = "Links (" + links.length + ")"
+    title.className = "title"
+    linkList.appendChild(title)
+
+    for (let link of links) { 
+      let linkContainer = document.createElement("div")
+      linkContainer.className = "linkContainer"
+      linkContainer.setAttribute("onClick", "copy(this.querySelector('.linkUrl').innerHTML)")
+
+      let linkUrl = document.createElement("div"); 
+      linkUrl.className = "linkUrl"
+
+      let linkName = document.createElement("div"); 
+      linkName.className = "linkName noSelect"
+
+      let linkControls = document.createElement("div"); 
+      linkControls.className = "linkControls"
+
+      let linkDetails = document.createElement("div"); 
+      linkDetails.className = "linkDetails" 
+
+      linkName.innerHTML = link.substring;
+      linkUrl.innerHTML = link.url; 
+      
+      linkContainer.appendChild(linkDetails)
+      linkDetails.appendChild(linkName)
+      linkDetails.appendChild(linkUrl)
+      linkContainer.appendChild(linkControls)
+      linkList.appendChild(linkContainer); 
+    }
+  }
+
+</script>
+
+<style>
+  button {
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .primary {
+    background: var(--figma-color-bg-brand);
+    color: var(--figma-color-text-onbrand);
+  }
+  
+  .primary:hover {
+    background: var(--figma-color-bg-brand-hover);
+  }
+
+  .primary:active {
+    background: var(--figma-color-bg-brand-pressed);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--figma-color-bg);
+    color: var(--figma-color-text);
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+  }
+
+  nav {
+    padding: 1rem;
+    border-bottom: 1px solid var(--figma-color-border);
+  }
+
+  #linkList {
+    padding: 1rem 0.75rem;
+  }
+
+  .title {
+    margin-bottom: 0.5rem;
+    padding: 0 0.5rem;
+    font-weight: 700;
+  }
+
+  .linkContainer {
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 2px;
+  }
+
+  .linkContainer:hover {
+    cursor: pointer;
+    background-color: var(--figma-color-bg-hover);
+  }
+
+  .linkContainer:hover .linkControls {
+    display: block;
+    opacity: 100;
+  }
+
+  .linkContainer:active {
+    background-color: var(--figma-color-bg-pressed);
+  }
+
+  .linkContainer:active .linkControls {
+    color: var(--figma-color-text-onbrand);
+    /* background: var(--figma-color-bg-brand-pressed); */
+  }
+
+  .linkDetails {
+    flex-grow: 1;
+    flex-basis: 60%;
+    overflow: hidden;
+    padding-right: 1rem;
+  }
+
+  .linkName {
+    white-space: nowrap;
+    width: 100%;                   
+    overflow: hidden;              
+    -o-text-overflow: ellipsis;    
+    text-overflow:    ellipsis;
+  }
+
+  .linkUrl {
+    padding-right: 0.2rem;
+    padding-top: 0.2rem;
+    color: var(--figma-color-text-brand);
+    font-size: 11px;
+    -webkit-user-select: all;  /* Chrome 49+ */
+    -moz-user-select: all;     /* Firefox 43+ */
+    -ms-user-select: all;      /* No support yet */
+    user-select: all;  
+  }
+
+  .linkControls {
+    padding: 0.25rem 0.75rem;
+    color: var(--figma-color-text-secondary);
+    background: var(--figma-color-bg-hover);
+    border-radius: 4px;
+    opacity: 0;
+    height: 1rem;
+    margin: auto;
+    transition: all .1s ease;
+  }
+
+  .linkControls::after {
+    content: "click URL to select"
+  }
+
+  .noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+  
+</style>
