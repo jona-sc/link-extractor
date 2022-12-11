@@ -69,10 +69,9 @@
     background-color: var(--figma-color-bg-pressed);
   }
 
-  .linkContainer:active .linkControls {
+  /* .linkContainer:active .linkControls {
     color: var(--figma-color-text-onbrand);
-    /* background: var(--figma-color-bg-brand-pressed); */
-  }
+  } */
 
   .linkDetails {
     flex-grow: 1;
@@ -112,8 +111,20 @@
   .controlIcon {
     border-radius: 4px;
     background-color: #fff;
+    border: 1px solid #fff;
     transition: all .1s ease;
     cursor: pointer;
+    display: inline-block;
+    margin: 0.15rem;
+  }
+
+  .controlIcon:hover {
+    border: 1px solid #000;
+  }
+
+  .controlIcon:active {
+    background-color: #fff;
+    border: 1px solid #fff;
   }
 
   .noSelect {

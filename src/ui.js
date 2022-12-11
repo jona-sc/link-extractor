@@ -37,12 +37,18 @@ onmessage = (event) => {
     let linkControls = document.createElement("div"); 
     linkControls.className = "linkControls"
 
-    let nodeId = link.nodeId
     let focusButton = document.createElement("div")
-    focusButton.className = "controlIcon icon icon--search icon--white"
-    focusButton.id = nodeId
+    focusButton.className = "controlIcon icon icon--search icon"
+    focusButton.id = link.nodeId
     focusButton.onclick = function() {
       focusNode(this.id)
+    }
+    
+    let linkButton = document.createElement("div")
+    linkButton.className = "controlIcon icon icon--link-connected icon"
+    linkButton.id = link.url
+    linkButton.onclick = function() {
+      window.open(link.url)
     }
 
     let linkDetails = document.createElement("div"); 
@@ -56,6 +62,7 @@ onmessage = (event) => {
     linkDetails.appendChild(linkUrl)
     linkContainer.appendChild(linkControls)
     linkControls.appendChild(focusButton)
+    linkControls.appendChild(linkButton)
     linkList.appendChild(linkContainer); 
   }
 }
