@@ -2,7 +2,7 @@
   "name": "Link Extractor",
   "id": "1160353682045902657",
   "api": "1.0.0",
-  "main": "code.js",
+  "main": "dist/code.js",
   "editorType": [
     "figma"
   ],

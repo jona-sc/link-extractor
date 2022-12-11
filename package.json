@@ -4,13 +4,19 @@
   "description": "Easily grab links out of your designs",
   "main": "code.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "rimraf dist && node ./esbuild.js",
     "watch": "npm run build -- --watch"
   },
   "author": "",
   "license": "",
   "devDependencies": {
     "@figma/plugin-typings": "^1.53.0",
+    "esbuild": "^0.16.4",
+    "html-minifier-terser": "^7.1.0",
+    "rimraf": "^3.0.2",
     "typescript": "*"
+  },
+  "dependencies": {
+    "figma-plugin-ds": "^1.0.1"
   }
 }
