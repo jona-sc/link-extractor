@@ -12,7 +12,6 @@ esbuild
   })
   .catch(() => process.exit(1));
 
-const {readFile, writeFile} = require('fs').promises;
 const minify = require('html-minifier-terser').minify;
 
 const buildWebComponents = (entryPoints) =>

@@ -5,7 +5,7 @@
   "main": "code.js",
   "scripts": {
     "build": "rimraf dist && node ./esbuild.js",
-    "watch": "npm run build -- --watch"
+    "watch": "nodemon esbuild.js"
   },
   "author": "",
   "license": "",
@@ -17,6 +17,7 @@
     "typescript": "*"
   },
   "dependencies": {
-    "figma-plugin-ds": "^1.0.1"
+    "figma-plugin-ds": "^1.0.1",
+    "nodemon": "^2.0.20"
   }
 }
