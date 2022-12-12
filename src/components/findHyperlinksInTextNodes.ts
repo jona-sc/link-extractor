@@ -1,4 +1,5 @@
 import extractHyperlinkPositionsFromMixedTextNode from "./extractHyperlinkPositionsFromMixedTextNode"
+import findFirstParentFrameName from "./findFirstParentFrame"
 
 const findHyperlinksInTextNodes = (nodes: TextNode[]) => {
   console.log("resetting constants")
@@ -13,7 +14,8 @@ const findHyperlinksInTextNodes = (nodes: TextNode[]) => {
     } else if (node.hyperlink) {
       console.log("hyperlink is not mixed")
       console.log(node)
-      links = links.concat({nodeId: node.id, substring: node.characters, url: node.hyperlink.value})
+      let parentFrame = findFirstParentFrameName(node)
+      links = links.concat({nodeId: node.id, parent: parentFrame, substring: node.characters, url: node.hyperlink.value})
     } else {
       console.log("no hyperlinks found")
     }

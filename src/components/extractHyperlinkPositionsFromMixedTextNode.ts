@@ -1,18 +1,21 @@
 import extractHyperlinkSegments from "./extractHyperlinkSegments"
+import findFirstParentFrameName from "./findFirstParentFrame"
 
 const extractHyperlinkPositionsFromMixedTextNode = (node: TextNode) => {
   console.log("extracting hyperlinks from mixed object")
   console.log(node)
   const length = node.characters.length
   let linkPositions: typeof linkGroup[] = []
-  let linkGroup: {nodeId: string, content: string, url: string, urlPosition: number}[] = []
+  let linkGroup: {nodeId: string, parent: string, content: string, url: string, urlPosition: number}[] = []
   for (let character=0 ; character < length ; character++) {
     let link = node.getRangeHyperlink(character, character+1)
     if (link != null && link !== figma.mixed && link.value) {
+      let parentFrame = findFirstParentFrameName(node)
       let prevUrl = linkGroup[linkGroup.length-1] ? linkGroup[linkGroup.length-1].url : ""
       let prevPosition = linkGroup[linkGroup.length-1] ? linkGroup[linkGroup.length-1].urlPosition : 0
       let linkPosition = {
         nodeId: node.id,
+        parent: parentFrame,
         content: node.characters,
         url: link.value,
         urlPosition: character

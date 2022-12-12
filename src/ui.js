@@ -16,13 +16,13 @@ document.getElementById('getLinks').onclick = () => {
 onmessage = (event) => {
   const links = event.data.pluginMessage
   const linkList = document.getElementById("linkList")
+  console.log(links)
+  removeAllChildNodes(linkList);
   
-  removeAllChildNodes(linkList)
-
-  const title = document.createElement("div")
-  title.innerHTML = "Links (" + links.length + ")"
-  title.className = "title"
-  linkList.appendChild(title)
+  const title = document.createElement("div");
+  title.innerHTML = "Links (" + links.length + ")";
+  title.className = "title";
+  linkList.appendChild(title);
 
   for (let link of links) { 
     let linkContainer = document.createElement("div")
@@ -34,18 +34,22 @@ onmessage = (event) => {
     let linkName = document.createElement("div"); 
     linkName.className = "linkName noSelect"
 
+    let linkFrame = document.createElement("div");
+    linkFrame.className = "linkFrame"
+    linkFrame.innerHTML = link.parent;
+
     let linkControls = document.createElement("div"); 
     linkControls.className = "linkControls"
 
     let focusButton = document.createElement("div")
-    focusButton.className = "controlIcon icon icon--search icon"
+    focusButton.className = "controlIcon icon icon--search"
     focusButton.id = link.nodeId
     focusButton.onclick = function() {
       focusNode(this.id)
     }
     
     let linkButton = document.createElement("div")
-    linkButton.className = "controlIcon icon icon--link-connected icon"
+    linkButton.className = "controlIcon icon icon--link-connected"
     linkButton.id = link.url
     linkButton.onclick = function() {
       window.open(link.url)
@@ -58,6 +62,7 @@ onmessage = (event) => {
     linkUrl.innerHTML = link.url; 
     
     linkContainer.appendChild(linkDetails)
+    linkDetails.appendChild(linkFrame)
     linkDetails.appendChild(linkName)
     linkDetails.appendChild(linkUrl)
     linkContainer.appendChild(linkControls)

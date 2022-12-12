@@ -80,6 +80,16 @@
     padding-right: 1rem;
   }
 
+  .linkFrame {
+    font-size: 9px;
+    margin-bottom: 0.4rem;
+    padding: 0.2rem 0.4rem;
+    color: #a8a8a8;
+    background-color: #404040;
+    display: inline-block;
+    border-radius: 5px;
+  }
+
   .linkName {
     white-space: nowrap;
     width: 100%;                   
@@ -97,6 +107,11 @@
     -moz-user-select: all;     /* Firefox 43+ */
     -ms-user-select: all;      /* No support yet */
     user-select: all;  
+    cursor: grab;
+  }
+
+  .linkUrl:active {
+    cursor: grabbing;
   }
 
   .linkControls {
@@ -126,7 +141,7 @@
     background-color: #fff;
     border: 1px solid #fff;
   }
-
+  
   .noSelect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
