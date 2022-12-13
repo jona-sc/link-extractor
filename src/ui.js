@@ -5,18 +5,20 @@ const removeAllChildNodes = (parent) => {
 }
 
 const focusNode = (nodeId) => {
-  console.log("sending focus message for node" + nodeId)
   parent.postMessage({ pluginMessage: { type: 'focus-node', nodeId: nodeId } }, '*')
 }
 
-document.getElementById('getLinks').onclick = () => {
+const requestLinks = () => {
   parent.postMessage({ pluginMessage: { type: 'get-links' } }, '*')
+}
+
+document.getElementById('getLinks').onclick = () => {
+  requestLinks()
 }
 
 onmessage = (event) => {
   const links = event.data.pluginMessage
   const linkList = document.getElementById("linkList")
-  console.log(links)
   removeAllChildNodes(linkList);
   
   const title = document.createElement("div");
